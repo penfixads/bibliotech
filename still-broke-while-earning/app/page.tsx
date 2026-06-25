@@ -50,7 +50,7 @@ function Hero() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero_stillbroke.jpg"
+          src="/images/hero_shine.jpg"
           alt="Warm reading scene"
           fill
           className="object-cover object-center"
@@ -65,9 +65,9 @@ function Hero() {
       <div className="absolute inset-0 z-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 65% 50%, rgba(201,168,76,0.08) 0%, transparent 60%)" }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Copy */}
-        <div>
+      <div className="relative z-10 w-full px-6 pt-32 pb-20 grid grid-cols-1 gap-16 items-center">
+        {/* Copy — hugs the left side over the stacked books */}
+        <div className="order-2 lg:order-1 lg:max-w-[380px] lg:ml-10 xl:ml-20">
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-7">
             <div className="w-8 h-px bg-gradient-to-r from-[#c9a84c] to-[#f5e642]" />
@@ -92,12 +92,37 @@ function Hero() {
             It&apos;s the system you&apos;ve never been taught.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+          <div className="inline-flex flex-col gap-2 items-center">
             <BuyButton size="large" />
             <p className="text-[#f5f0e8]/40 text-sm">Digital copy · Instant access</p>
           </div>
         </div>
 
+        {/* Book — mobile only (stacked above text) */}
+        <div className="order-1 lg:hidden flex justify-center">
+          <Image
+            src="/images/stillbroke.png"
+            alt="Still Broke While Earning — book"
+            width={320}
+            height={420}
+            className="object-contain"
+            style={{ filter: "drop-shadow(0 0 24px rgba(255,160,30,0.7)) drop-shadow(0 0 60px rgba(255,120,0,0.4))" }}
+            priority
+          />
+        </div>
+      </div>
+
+      {/* Book — desktop only, centered and elevated above the open book glow */}
+      <div className="hidden lg:block absolute z-20"
+        style={{ left: "calc(53% + 40px)", transform: "translateX(-50%)", bottom: "calc(28% + 20px)", width: 270 }}>
+        <Image
+          src="/images/stillbroke.png"
+          alt="Still Broke While Earning — book"
+          width={270}
+          height={350}
+          className="book-float object-contain"
+          priority
+        />
       </div>
 
       {/* Bottom fade */}

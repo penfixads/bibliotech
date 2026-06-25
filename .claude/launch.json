@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Next.js dev server",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", "Set-Location 'E:\\PENFIX WEBSITES\\bibliotech\\still-broke-while-earning'; & 'C:\\Program Files\\nodejs\\npx.cmd' --yes next dev --port 3000"],
+      "port": 3000
+    }
+  ]
+}
