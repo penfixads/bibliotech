@@ -56,28 +56,29 @@ function Hero() {
           className="object-cover object-center"
           priority
         />
-        {/* Cinematic emerald overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#04100a]/98 via-[#08190f]/92 to-[#04100a]/68" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#04100a]/85 via-transparent to-[#04100a]/45" />
+        {/* Mobile/tablet overlay — even dark veil so centered text is readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#04100a]/98 via-[#08190f]/92 to-[#04100a]/68 lg:hidden" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04100a]/85 via-transparent to-[#04100a]/45 lg:hidden" />
+        {/* Desktop overlay — heavy left for text legibility, fades right so open book shows */}
+        <div className="absolute inset-0 hidden lg:block"
+          style={{ background: "linear-gradient(to right, #04100a 0%, #04100af5 28%, #08190fcc 52%, transparent 75%)" }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04100a]/85 via-transparent to-[#04100a]/45 hidden lg:block" />
       </div>
 
-      {/* Subtle gold radial glow — always centered */}
+      {/* Subtle gold radial glow */}
       <div className="absolute inset-0 z-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 60%)" }} />
 
-      {/* Content — flex column, all centered */}
-      <div className="relative z-20 w-full flex flex-col items-center justify-center px-6 pt-24 pb-16 gap-8 h-screen text-center">
-        {/* Floating book — always centered over the open book */}
+      {/* ── Mobile / Tablet — centered column ── */}
+      <div className="relative z-20 w-full flex flex-col items-center justify-center px-6 pt-24 pb-16 gap-8 h-screen text-center lg:hidden">
         <Image
           src="/images/stillbroke.png"
           alt="Still Broke While Earning — book"
           width={220}
           height={286}
-          className="book-float object-contain w-[150px] md:w-[185px] lg:w-[220px] flex-shrink-0"
+          className="book-float object-contain w-[150px] md:w-[185px] flex-shrink-0"
           priority
         />
-
-        {/* Text block */}
         <div className="flex flex-col items-center max-w-lg">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-px bg-gradient-to-r from-[#c9a84c] to-[#f5e642]" />
@@ -85,7 +86,7 @@ function Hero() {
               BrilliantLabs Bibliotech — New Release
             </span>
           </div>
-          <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-black text-[#f5f0e8] leading-[1.15] mb-4">
+          <h1 className="font-display text-2xl md:text-3xl font-black text-[#f5f0e8] leading-[1.15] mb-4">
             You work hard.<br />
             <em className="not-italic text-transparent bg-clip-text"
               style={{ backgroundImage: "linear-gradient(135deg, #c9a84c, #f5e642)" }}>
@@ -93,16 +94,59 @@ function Hero() {
             </em>{" "}And yet…<br />
             you&apos;re still broke.
           </h1>
-          <p className="text-[#f5f0e8]/70 text-base lg:text-xl leading-relaxed mb-2">
+          <p className="text-[#f5f0e8]/70 text-base leading-relaxed mb-2">
             The answer isn&apos;t more income.
           </p>
-          <p className="text-[#f5e642]/90 text-base lg:text-lg leading-relaxed mb-6 font-medium">
+          <p className="text-[#f5e642]/90 text-base leading-relaxed mb-6 font-medium">
             It&apos;s the system you&apos;ve never been taught.
           </p>
           <div className="flex flex-col gap-2 items-center">
             <BuyButton size="large" />
             <p className="text-[#f5f0e8]/40 text-sm">Digital copy · Instant access</p>
           </div>
+        </div>
+      </div>
+
+      {/* ── Desktop — text left over stacked books, floating book right over open book ── */}
+      <div className="relative z-20 hidden lg:flex w-full h-screen items-center px-16 xl:px-24">
+        {/* Text block — left column */}
+        <div className="flex flex-col items-start max-w-xl">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-8 h-px bg-gradient-to-r from-[#c9a84c] to-[#f5e642]" />
+            <span className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase">
+              BrilliantLabs Bibliotech — New Release
+            </span>
+          </div>
+          <h1 className="font-display text-4xl xl:text-5xl font-black text-[#f5f0e8] leading-[1.15] mb-5">
+            You work hard.<br />
+            <em className="not-italic text-transparent bg-clip-text"
+              style={{ backgroundImage: "linear-gradient(135deg, #c9a84c, #f5e642)" }}>
+              You earn.
+            </em>{" "}And yet…<br />
+            you&apos;re still broke.
+          </h1>
+          <p className="text-[#f5f0e8]/70 text-xl leading-relaxed mb-2">
+            The answer isn&apos;t more income.
+          </p>
+          <p className="text-[#f5e642]/90 text-lg leading-relaxed mb-8 font-medium">
+            It&apos;s the system you&apos;ve never been taught.
+          </p>
+          <div className="flex flex-col gap-2 items-start">
+            <BuyButton size="large" />
+            <p className="text-[#f5f0e8]/40 text-sm">Digital copy · Instant access</p>
+          </div>
+        </div>
+
+        {/* Floating book — right side, positioned over the open book in background */}
+        <div className="absolute right-[18%] xl:right-[22%] top-1/2 -translate-y-1/2">
+          <Image
+            src="/images/stillbroke.png"
+            alt="Still Broke While Earning — book"
+            width={260}
+            height={338}
+            className="book-float object-contain"
+            priority
+          />
         </div>
       </div>
 

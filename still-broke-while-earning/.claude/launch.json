@@ -5,7 +5,7 @@
       "name": "Next.js dev server",
       "runtimeExecutable": "npx",
       "runtimeArgs": ["--yes", "next", "dev", "--port", "3000"],
-      "cwd": "E:\\PENFIX WEBSITES\\bibliotech\\still-broke-while-earning",
+      "cwd": "C:\\PENFIX WEBSITES\\bibliotech\\still-broke-while-earning",
       "port": 3000
     }
   ]

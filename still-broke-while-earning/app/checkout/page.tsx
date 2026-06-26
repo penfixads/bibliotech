@@ -142,10 +142,11 @@ export default function Checkout() {
                 <span className="text-[#c9a84c] text-xs font-semibold tracking-wider uppercase mb-3 block">
                   Payment Method
                 </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
                   {[
                     { id: "card", label: "Card", icon: "💳" },
                     { id: "gcash", label: "GCash", icon: "📱" },
+                    { id: "paymaya", label: "PayMaya", icon: "🟢" },
                     { id: "bank", label: "Bank Transfer", icon: "🏦" },
                   ].map((m) => (
                     <button
