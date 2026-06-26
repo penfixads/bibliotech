@@ -2,187 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
-
-html {
-  scroll-behavior: smooth;
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+  --gold:          #c8a84b;
+  --text-primary:  #e8dfc0;
+  --text-muted:    rgba(232, 223, 192, 0.4);
+  --font-display:  'Cormorant Garamond', Georgia, serif;
+  --font-brand:    'Cinzel', Georgia, serif;
+  --font-body:     'Inter', system-ui, sans-serif;
 }
 
-/* Hero background — keep open book centred at every viewport */
-.hero-bg-position { object-position: center 85%; }
-@media (min-width: 768px)  { .hero-bg-position { object-position: center 75%; } }
-@media (min-width: 1024px) { .hero-bg-position { object-position: center 65%; } }
+html { scroll-behavior: smooth; }
 
 body {
   background: #04100a;
   background-attachment: fixed;
-  color: #f5f0e8;
-  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 19px;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.font-display {
-  font-family: 'Playfair Display', Georgia, serif;
+/* ── Semantic font helpers ─────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-brand   { font-family: var(--font-brand); }
+.font-body    { font-family: var(--font-body); }
+
+/* Italic gold accent — used on em tags and italic spans */
+em, .italic-accent {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
 }
 
-/* Dark pill button with gold border + glow */
+/* Section eyebrow labels */
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15.5px;
+  letter-spacing: 5.5px;
+  text-transform: uppercase;
+}
+
+/* ── Gold pill button ──────────────────────────────────────── */
 .btn-gold {
   position: relative;
   background: linear-gradient(180deg, #14130f 0%, #050505 100%);
-  color: #f5f0e8;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 16.5px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  border: 1px solid #c9a84c;
+  border: 1px solid var(--gold);
   border-radius: 9999px;
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow:
-    0 0 0 1px rgba(201,168,76,0.25),
-    0 0 18px rgba(201,168,76,0.35),
-    inset 0 0 8px rgba(201,168,76,0.12);
+    0 0 0 1px rgba(200, 168, 75, 0.25),
+    0 0 18px rgba(200, 168, 75, 0.35),
+    inset 0 0 8px rgba(200, 168, 75, 0.12);
 }
 .btn-gold:hover {
   color: #ffffff;
   border-color: #f5e642;
   box-shadow:
-    0 0 0 1px rgba(245,230,66,0.35),
-    0 0 26px rgba(201,168,76,0.55),
-    inset 0 0 10px rgba(201,168,76,0.2);
+    0 0 0 1px rgba(245, 230, 66, 0.35),
+    0 0 26px rgba(200, 168, 75, 0.55),
+    inset 0 0 10px rgba(200, 168, 75, 0.2);
   transform: translateY(-1px) scale(1.02);
 }
-.btn-gold:active {
-  transform: scale(0.98);
-}
+.btn-gold:active { transform: scale(0.98); }
 
-/* Gold shimmer line divider */
+/* ── Gold shimmer divider ──────────────────────────────────── */
 .gold-divider {
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #c9a84c 30%, #f5e642 50%, #c9a84c 70%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #c8a84b 30%, #f5e642 50%, #c8a84b 70%, transparent 100%);
   opacity: 0.4;
 }
 
-/* Emerald card — one tone lighter than the deep green background */
+/* ── Emerald card ──────────────────────────────────────────── */
 .emerald-card {
   background: #0a2114;
-  border: 1px solid rgba(201,168,76,0.25);
+  border: 1px solid rgba(200, 168, 75, 0.25);
   transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
+.emerald-card:hover {
+  border-color: rgba(200, 168, 75, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(200, 168, 75, 0.1);
+}
 
-/* Checkout form input */
+/* ── Checkout input ────────────────────────────────────────── */
 .checkout-input {
   width: 100%;
   background: #04100a;
-  border: 1px solid rgba(201,168,76,0.3);
+  border: 1px solid rgba(200, 168, 75, 0.3);
   border-radius: 8px;
   padding: 14px 16px;
-  color: #f5f0e8;
-  font-size: 15px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 19px;
+  font-weight: 300;
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
 }
-.checkout-input::placeholder {
-  color: rgba(245,240,232,0.3);
-}
+.checkout-input::placeholder { color: var(--text-muted); }
 .checkout-input:focus {
-  border-color: #c9a84c;
-  box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
-}
-.emerald-card:hover {
-  border-color: rgba(201,168,76,0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(201,168,76,0.1);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(200, 168, 75, 0.15);
 }
 
-/* ── Hologram projection effect ───────────────────────────── */
-@keyframes holo-flicker {
-  0%, 100% { opacity: 1; }
-  92%       { opacity: 1; }
-  93%       { opacity: 0.75; }
-  94%       { opacity: 1; }
-  96%       { opacity: 0.85; }
-  97%       { opacity: 1; }
+/* ── Icon glow ─────────────────────────────────────────────── */
+.icon-glow {
+  filter:
+    drop-shadow(0 0 6px rgba(200, 168, 75, 0.45))
+    drop-shadow(0 0 14px rgba(200, 168, 75, 0.2))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
-@keyframes holo-scan {
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-
-@keyframes holo-beam-pulse {
-  0%, 100% { opacity: 0.45; transform: scaleX(1); }
-  50%       { opacity: 0.65; transform: scaleX(1.06); }
-}
-
-@-webkit-keyframes holo-float {
-  0%, 100% { -webkit-transform: translateY(0px); transform: translateY(0px); }
-  50%       { -webkit-transform: translateY(-10px); transform: translateY(-10px); }
-}
+/* ── Book float animation ──────────────────────────────────── */
 @keyframes holo-float {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-10px); }
+}
+@-webkit-keyframes holo-float {
+  0%, 100% { -webkit-transform: translateY(0px); transform: translateY(0px); }
+  50%       { -webkit-transform: translateY(-10px); transform: translateY(-10px); }
 }
 
 .book-float {
   -webkit-animation: holo-float 4s ease-in-out infinite;
   animation: holo-float 4s ease-in-out infinite;
-  -webkit-filter:
-    drop-shadow(0 0 11px rgba(255,160,30,0.38))
-    drop-shadow(0 0 28px rgba(255,100,0,0.21))
-    drop-shadow(0 -6px 14px rgba(255,200,80,0.17));
   filter:
     drop-shadow(0 0 11px rgba(255,160,30,0.38))
     drop-shadow(0 0 28px rgba(255,100,0,0.21))
     drop-shadow(0 -6px 14px rgba(255,200,80,0.17));
-  -webkit-transition: filter 0.4s ease;
+  -webkit-filter:
+    drop-shadow(0 0 11px rgba(255,160,30,0.38))
+    drop-shadow(0 0 28px rgba(255,100,0,0.21))
+    drop-shadow(0 -6px 14px rgba(255,200,80,0.17));
   transition: filter 0.4s ease;
   cursor: pointer;
   will-change: transform, filter;
 }
 .book-float:hover {
-  -webkit-filter:
-    drop-shadow(0 0 20px rgba(255,210,60,0.6))
-    drop-shadow(0 0 49px rgba(255,150,0,0.42))
-    drop-shadow(0 -12px 28px rgba(255,230,100,0.35))
-    drop-shadow(0 0 8px rgba(255,255,180,0.28));
   filter:
     drop-shadow(0 0 20px rgba(255,210,60,0.6))
     drop-shadow(0 0 49px rgba(255,150,0,0.42))
     drop-shadow(0 -12px 40px rgba(255,230,100,0.5))
     drop-shadow(0 0 12px rgba(255,255,180,0.4));
-}
-
-.holo-book {
-  animation: holo-flicker 6s infinite, holo-float 4s ease-in-out infinite;
-  filter:
-    drop-shadow(0 0 18px rgba(100,220,255,0.65))
-    drop-shadow(0 0 40px rgba(80,180,255,0.35))
-    hue-rotate(180deg) saturate(0.6) brightness(1.15);
-}
-
-.holo-scanlines {
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(100,220,255,0.06) 3px,
-    rgba(100,220,255,0.06) 4px
-  );
-  pointer-events: none;
-}
-
-.holo-sweep {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(100,220,255,0.18) 50%,
-    transparent 100%
-  );
-  animation: holo-scan 3s linear infinite;
-  pointer-events: none;
-}
-
-.holo-beam {
-  animation: holo-beam-pulse 3s ease-in-out infinite;
+  -webkit-filter:
+    drop-shadow(0 0 20px rgba(255,210,60,0.6))
+    drop-shadow(0 0 49px rgba(255,150,0,0.42))
+    drop-shadow(0 -12px 28px rgba(255,230,100,0.35))
+    drop-shadow(0 0 8px rgba(255,255,180,0.28));
 }

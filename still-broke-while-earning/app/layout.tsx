@@ -1,5 +1,28 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Cinzel, Inter } from "next/font/google";
 import "./globals.css";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-brand",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Still Broke While Earning | M.A. Jacinto, CSFP",
@@ -14,12 +37,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${cormorant.variable} ${cinzel.variable} ${inter.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

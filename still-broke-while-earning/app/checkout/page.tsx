@@ -144,10 +144,10 @@ export default function Checkout() {
                 </span>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
                   {[
-                    { id: "card", label: "Card", icon: "💳" },
-                    { id: "gcash", label: "GCash", icon: "📱" },
-                    { id: "paymaya", label: "PayMaya", icon: "🟢" },
-                    { id: "bank", label: "Bank Transfer", icon: "🏦" },
+                    { id: "card",    label: "Card",          icon: "/images/icons/creditcard.png", size: 36 },
+                    { id: "gcash",   label: "GCash",         icon: "/images/icons/gcash.png",       size: 42 },
+                    { id: "paymaya", label: "PayMaya",       icon: "/images/icons/maya.png",        size: 42 },
+                    { id: "bank",    label: "Bank Transfer", icon: "/images/icons/bank.png",        size: 36 },
                   ].map((m) => (
                     <button
                       key={m.id}
@@ -169,7 +169,9 @@ export default function Checkout() {
                             : "transparent",
                       }}
                     >
-                      <div className="text-2xl mb-1">{m.icon}</div>
+                      <div className="flex justify-center mb-1">
+                        <Image src={m.icon} alt={m.label} width={m.size} height={m.size} className="object-contain icon-glow" />
+                      </div>
                       <div className="text-sm font-medium">{m.label}</div>
                     </button>
                   ))}
