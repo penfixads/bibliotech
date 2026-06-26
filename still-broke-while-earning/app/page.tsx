@@ -59,10 +59,10 @@ function Hero() {
         {/* Mobile/tablet overlay — even dark veil so centered text is readable */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#04100a]/98 via-[#08190f]/92 to-[#04100a]/68 lg:hidden" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#04100a]/85 via-transparent to-[#04100a]/45 lg:hidden" />
-        {/* Desktop overlay — heavy left for text legibility, fades right so open book shows */}
+        {/* Desktop overlay — light scrim so bg image shows through, text stays legible */}
         <div className="absolute inset-0 hidden lg:block"
-          style={{ background: "linear-gradient(to right, #04100a 0%, #04100af5 28%, #08190fcc 52%, transparent 75%)" }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#04100a]/85 via-transparent to-[#04100a]/45 hidden lg:block" />
+          style={{ background: "linear-gradient(to right, rgba(4,16,10,0.55) 0%, rgba(4,16,10,0.45) 35%, rgba(8,25,15,0.25) 58%, transparent 75%)" }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04100a]/80 via-transparent to-[#04100a]/30 hidden lg:block" />
       </div>
 
       {/* Subtle gold radial glow */}
@@ -117,10 +117,9 @@ function Hero() {
               BrilliantLabs Bibliotech — New Release
             </span>
           </div>
-          <h1 className="font-display text-4xl xl:text-5xl font-black text-[#f5f0e8] leading-[1.15] mb-5">
+          <h1 className="font-display text-4xl xl:text-5xl font-black text-[#f5f0e8] leading-[1.15] mb-5" style={{ textShadow: "0 2px 16px rgba(4,16,10,0.9), 0 1px 4px rgba(4,16,10,0.8)" }}>
             You work hard.<br />
-            <em className="not-italic text-transparent bg-clip-text"
-              style={{ backgroundImage: "linear-gradient(135deg, #c9a84c, #f5e642)" }}>
+            <em className="not-italic text-[#f5e642]">
               You earn.
             </em>{" "}And yet…<br />
             you&apos;re still broke.
@@ -131,14 +130,14 @@ function Hero() {
           <p className="text-[#f5e642]/90 text-lg leading-relaxed mb-8 font-medium">
             It&apos;s the system you&apos;ve never been taught.
           </p>
-          <div className="flex flex-col gap-2 items-start">
+          <div className="inline-flex flex-col gap-2">
             <BuyButton size="large" />
-            <p className="text-[#f5f0e8]/40 text-sm">Digital copy · Instant access</p>
+            <p className="text-[#f5f0e8]/40 text-sm text-center">Digital copy · Instant access</p>
           </div>
         </div>
 
-        {/* Floating book — right side, positioned over the open book in background */}
-        <div className="absolute right-[18%] xl:right-[22%] top-1/2 -translate-y-1/2">
+        {/* Floating book — centered over the glowing open book in background */}
+        <div className="absolute top-1/2 -translate-y-[55%]" style={{ left: 'calc(50% - 55px)', transform: 'translateX(-15%) translateY(-55%)' }}>
           <Image
             src="/images/stillbroke.png"
             alt="Still Broke While Earning — book"
