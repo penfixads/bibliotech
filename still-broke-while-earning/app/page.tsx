@@ -46,11 +46,11 @@ function Navbar() {
 /* ─── Hero ────────────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero_shine.jpg"
+          src="/images/hero_shine.png"
           alt="Warm reading scene"
           fill
           className="object-cover object-center"
@@ -61,22 +61,31 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#04100a]/85 via-transparent to-[#04100a]/45" />
       </div>
 
-      {/* Subtle gold radial glow */}
+      {/* Subtle gold radial glow — always centered */}
       <div className="absolute inset-0 z-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 65% 50%, rgba(201,168,76,0.08) 0%, transparent 60%)" }} />
+        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 60%)" }} />
 
-      <div className="relative z-10 w-full px-6 pt-32 pb-20 grid grid-cols-1 gap-16 items-center">
-        {/* Copy — hugs the left side over the stacked books */}
-        <div className="order-2 lg:order-1 lg:max-w-[380px] lg:ml-10 xl:ml-20">
-          {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-7">
+      {/* Content — flex column, all centered */}
+      <div className="relative z-20 w-full flex flex-col items-center justify-center px-6 pt-24 pb-16 gap-8 h-screen text-center">
+        {/* Floating book — always centered over the open book */}
+        <Image
+          src="/images/stillbroke.png"
+          alt="Still Broke While Earning — book"
+          width={220}
+          height={286}
+          className="book-float object-contain w-[150px] md:w-[185px] lg:w-[220px] flex-shrink-0"
+          priority
+        />
+
+        {/* Text block */}
+        <div className="flex flex-col items-center max-w-lg">
+          <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-px bg-gradient-to-r from-[#c9a84c] to-[#f5e642]" />
             <span className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase">
               BrilliantLabs Bibliotech — New Release
             </span>
           </div>
-
-          <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-black text-[#f5f0e8] leading-[1.15] mb-6">
+          <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-black text-[#f5f0e8] leading-[1.15] mb-4">
             You work hard.<br />
             <em className="not-italic text-transparent bg-clip-text"
               style={{ backgroundImage: "linear-gradient(135deg, #c9a84c, #f5e642)" }}>
@@ -84,45 +93,17 @@ function Hero() {
             </em>{" "}And yet…<br />
             you&apos;re still broke.
           </h1>
-
-          <p className="text-[#f5f0e8]/70 text-xl leading-relaxed mb-4 max-w-lg">
+          <p className="text-[#f5f0e8]/70 text-base lg:text-xl leading-relaxed mb-2">
             The answer isn&apos;t more income.
           </p>
-          <p className="text-[#f5e642]/90 text-lg leading-relaxed mb-10 max-w-lg font-medium">
+          <p className="text-[#f5e642]/90 text-base lg:text-lg leading-relaxed mb-6 font-medium">
             It&apos;s the system you&apos;ve never been taught.
           </p>
-
-          <div className="inline-flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-2 items-center">
             <BuyButton size="large" />
             <p className="text-[#f5f0e8]/40 text-sm">Digital copy · Instant access</p>
           </div>
         </div>
-
-        {/* Book — mobile only (stacked above text) */}
-        <div className="order-1 lg:hidden flex justify-center">
-          <Image
-            src="/images/stillbroke.png"
-            alt="Still Broke While Earning — book"
-            width={320}
-            height={420}
-            className="object-contain"
-            style={{ filter: "drop-shadow(0 0 24px rgba(255,160,30,0.7)) drop-shadow(0 0 60px rgba(255,120,0,0.4))" }}
-            priority
-          />
-        </div>
-      </div>
-
-      {/* Book — desktop only, centered and elevated above the open book glow */}
-      <div className="hidden lg:block absolute z-20"
-        style={{ left: "calc(53% + 40px)", transform: "translateX(-50%)", bottom: "calc(28% + 20px)", width: 270 }}>
-        <Image
-          src="/images/stillbroke.png"
-          alt="Still Broke While Earning — book"
-          width={270}
-          height={350}
-          className="book-float object-contain"
-          priority
-        />
       </div>
 
       {/* Bottom fade */}

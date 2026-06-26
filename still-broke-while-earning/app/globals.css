@@ -8,6 +8,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hero background — keep open book centred at every viewport */
+.hero-bg-position { object-position: center 85%; }
+@media (min-width: 768px)  { .hero-bg-position { object-position: center 75%; } }
+@media (min-width: 1024px) { .hero-bg-position { object-position: center 65%; } }
+
 body {
   background: #04100a;
   background-attachment: fixed;
@@ -123,13 +128,13 @@ body {
   -webkit-animation: holo-float 4s ease-in-out infinite;
   animation: holo-float 4s ease-in-out infinite;
   -webkit-filter:
-    drop-shadow(0 0 16px rgba(255,160,30,0.55))
-    drop-shadow(0 0 40px rgba(255,100,0,0.3))
-    drop-shadow(0 -6px 20px rgba(255,200,80,0.25));
+    drop-shadow(0 0 11px rgba(255,160,30,0.38))
+    drop-shadow(0 0 28px rgba(255,100,0,0.21))
+    drop-shadow(0 -6px 14px rgba(255,200,80,0.17));
   filter:
-    drop-shadow(0 0 16px rgba(255,160,30,0.55))
-    drop-shadow(0 0 40px rgba(255,100,0,0.3))
-    drop-shadow(0 -6px 20px rgba(255,200,80,0.25));
+    drop-shadow(0 0 11px rgba(255,160,30,0.38))
+    drop-shadow(0 0 28px rgba(255,100,0,0.21))
+    drop-shadow(0 -6px 14px rgba(255,200,80,0.17));
   -webkit-transition: filter 0.4s ease;
   transition: filter 0.4s ease;
   cursor: pointer;
@@ -137,13 +142,13 @@ body {
 }
 .book-float:hover {
   -webkit-filter:
-    drop-shadow(0 0 28px rgba(255,210,60,0.85))
-    drop-shadow(0 0 70px rgba(255,150,0,0.6))
-    drop-shadow(0 -12px 40px rgba(255,230,100,0.5))
-    drop-shadow(0 0 12px rgba(255,255,180,0.4));
+    drop-shadow(0 0 20px rgba(255,210,60,0.6))
+    drop-shadow(0 0 49px rgba(255,150,0,0.42))
+    drop-shadow(0 -12px 28px rgba(255,230,100,0.35))
+    drop-shadow(0 0 8px rgba(255,255,180,0.28));
   filter:
-    drop-shadow(0 0 28px rgba(255,210,60,0.85))
-    drop-shadow(0 0 70px rgba(255,150,0,0.6))
+    drop-shadow(0 0 20px rgba(255,210,60,0.6))
+    drop-shadow(0 0 49px rgba(255,150,0,0.42))
     drop-shadow(0 -12px 40px rgba(255,230,100,0.5))
     drop-shadow(0 0 12px rgba(255,255,180,0.4));
 }
