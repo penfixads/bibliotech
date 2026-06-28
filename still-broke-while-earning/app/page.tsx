@@ -32,8 +32,13 @@ function Navbar() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <span className="font-brand text-[#c8a84b]" style={{ fontSize: "20px", letterSpacing: "4px", textTransform: "uppercase" }}>
-          BrilliantLabs Bibliotech
+        <span className="flex flex-col leading-tight">
+          <span className="font-brand text-[#c8a84b]" style={{ fontSize: "20px", letterSpacing: "4px", textTransform: "uppercase" }}>
+            BrilliantLabs Bibliotech
+          </span>
+          <span className="eyebrow text-[#c8a84b]/60" style={{ fontSize: "10px", letterSpacing: "4px" }}>
+            New Release
+          </span>
         </span>
         <BuyButton />
       </div>

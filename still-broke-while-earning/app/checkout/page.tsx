@@ -146,7 +146,7 @@ export default function Checkout() {
                   {[
                     { id: "card",    label: "Card",          icon: "/images/icons/creditcard.png", size: 36 },
                     { id: "gcash",   label: "GCash",         icon: "/images/icons/gcash.png",       size: 42 },
-                    { id: "paymaya", label: "PayMaya",       icon: "/images/icons/maya.png",        size: 42 },
+                    { id: "paymaya", label: "PayMaya",       icon: "/images/icons/maya.png",        size: 47 },
                     { id: "bank",    label: "Bank Transfer", icon: "/images/icons/bank.png",        size: 36 },
                   ].map((m) => (
                     <button
