@@ -1,6 +1,10 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error("RESEND_API_KEY is not set");
+  return new Resend(key);
+}
 
 export async function sendBookDeliveryEmail({
   buyerName,
@@ -19,6 +23,7 @@ export async function sendBookDeliveryEmail({
 }) {
   const firstName = buyerName.split(" ")[0];
 
+  const resend = getResend();
   await resend.emails.send({
     from: "BrilliantLabsPh Bibliotech <bibliotech@brilliantlabsph.com>",
     to: buyerEmail,

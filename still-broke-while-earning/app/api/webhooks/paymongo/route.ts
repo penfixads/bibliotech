@@ -4,6 +4,7 @@ import { generateLicenseId } from "@/lib/license";
 import { personalizePdf } from "@/lib/pdf";
 import { sendBookDeliveryEmail } from "@/lib/email";
 import { createHmac } from "crypto";
+import { BookData } from "@/lib/supabase";
 
 function db() {
   return createClient(
@@ -14,9 +15,15 @@ function db() {
 
 function verifySignature(payload: string, sigHeader: string): boolean {
   const secret = process.env.PAYMONGO_WEBHOOK_SECRET;
-  if (!secret) return true; // skip in dev if not set
+  if (!secret) return true;
   const computed = createHmac("sha256", secret).update(payload).digest("hex");
   return computed === sigHeader;
+}
+
+async function getBook(slug: string): Promise<BookData | null> {
+  const supabase = db();
+  const { data } = await supabase.from("books").select("*").eq("slug", slug).single();
+  return data ?? null;
 }
 
 export async function POST(req: NextRequest) {
@@ -30,7 +37,6 @@ export async function POST(req: NextRequest) {
   const event = JSON.parse(rawBody);
   const eventType = event?.data?.attributes?.type;
 
-  // Only process successful checkout payments
   if (eventType !== "checkout_session.payment.paid") {
     return NextResponse.json({ received: true });
   }
@@ -44,6 +50,7 @@ export async function POST(req: NextRequest) {
 
   const buyerName = metadata.buyer_name ?? billing.name ?? "Buyer";
   const buyerEmail = metadata.buyer_email ?? billing.email;
+  const bookSlug = metadata.book_slug ?? "still-broke-while-earning";
 
   if (!buyerEmail) {
     return NextResponse.json({ error: "No buyer email in session" }, { status: 400 });
@@ -60,13 +67,18 @@ export async function POST(req: NextRequest) {
 
   if (existing) return NextResponse.json({ received: true, duplicate: true });
 
-  // Generate license
+  // Get book data from DB
+  const book = await getBook(bookSlug);
+  const bookTitle = book?.title ?? "Still Broke While Earning";
+  const bookCode = bookSlug.toUpperCase().split("-").map((w: string) => w[0]).join("").slice(0, 6);
+  const amount = book?.price ?? 950;
+
   const issueDate = new Date().toLocaleDateString("en-PH", {
     year: "numeric", month: "long", day: "numeric",
   });
 
   const { licenseId, orderNumber } = await generateLicenseId({
-    bookSlug: "sbwe",
+    bookSlug: bookCode,
     country: "PH",
     licenseType: "R",
   });
@@ -77,46 +89,52 @@ export async function POST(req: NextRequest) {
     order_number: orderNumber,
     buyer_name: buyerName,
     buyer_email: buyerEmail,
-    book_slug: "sbwe",
-    book_name: "Still Broke While Earning",
+    book_slug: bookSlug,
+    book_name: bookTitle,
     country: "PH",
     license_type: "R",
-    amount: 950,
+    amount,
     payment_id: paymentId,
     payment_method: paymentMethod,
     issued_at: new Date().toISOString(),
   });
 
-  // Personalize both PDFs
+  // Personalize PDFs
   const sharedArgs = { buyerName, buyerEmail, licenseId, orderNumber, issueDate };
+  const pdfBuffers: { filename: string; content: Uint8Array }[] = [];
 
-  const [sбweBytes, challengeBytes] = await Promise.all([
-    personalizePdf({
-      storagePath: "still-broke-while-earning.pdf",
-      bookTitle: "Still Broke While Earning",
+  if (book?.main_pdf_path) {
+    const bytes = await personalizePdf({
+      storagePath: book.main_pdf_path,
+      bookTitle,
       ...sharedArgs,
-    }),
-    personalizePdf({
-      storagePath: "21-day-financial-freedom.pdf",
-      bookTitle: "21-Day Financial\nFreedom Challenge",
-      ...sharedArgs,
-    }),
-  ]);
+    });
+    pdfBuffers.push({ filename: `${bookSlug}.pdf`, content: bytes });
+  }
 
-  // Send delivery email
-  await sendBookDeliveryEmail({
-    buyerName,
-    buyerEmail,
-    licenseId,
-    orderNumber,
-    issueDate,
-    pdfBuffers: [
-      { filename: "Still-Broke-While-Earning.pdf", content: sбweBytes },
+  if (book?.challenge_pdf_path) {
+    const bytes = await personalizePdf({
+      storagePath: book.challenge_pdf_path,
+      bookTitle: `${bookTitle} — Challenge`,
+      ...sharedArgs,
+    });
+    pdfBuffers.push({ filename: `${bookSlug}-challenge.pdf`, content: bytes });
+  }
+
+  // Fallback for SBWE if no DB book yet
+  if (pdfBuffers.length === 0) {
+    const [sbweBytes, challengeBytes] = await Promise.all([
+      personalizePdf({ storagePath: "still-broke-while-earning.pdf", bookTitle, ...sharedArgs }),
+      personalizePdf({ storagePath: "21-day-financial-freedom.pdf", bookTitle: "21-Day Financial\nFreedom Challenge", ...sharedArgs }),
+    ]);
+    pdfBuffers.push(
+      { filename: "Still-Broke-While-Earning.pdf", content: sbweBytes },
       { filename: "21-Day-Financial-Freedom-Challenge.pdf", content: challengeBytes },
-    ],
-  });
+    );
+  }
 
-  // Mark email sent
+  await sendBookDeliveryEmail({ buyerName, buyerEmail, licenseId, orderNumber, issueDate, pdfBuffers });
+
   await supabase
     .from("licenses")
     .update({ email_sent_at: new Date().toISOString() })
