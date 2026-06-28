@@ -56,7 +56,7 @@ function Hero() {
           src="/images/hero_shine.png"
           alt="Warm reading scene"
           fill
-          className="object-cover object-[60%_center] lg:object-center"
+          className="object-cover object-[55%_65%] lg:object-center"
           priority
         />
         {/* Mobile/tablet overlay */}
@@ -74,14 +74,14 @@ function Hero() {
 
       {/* ── Mobile / Tablet — book over glow, text below ── */}
       <div className="relative z-20 w-full flex flex-col items-center justify-start px-6 pt-20 h-screen text-center lg:hidden">
-        {/* Book centered over the glowing open book background */}
-        <div className="flex-1 flex flex-col items-center justify-center w-full pt-[80px] md:pt-[40px]">
+        {/* Book positioned to align with the glowing open book in background */}
+        <div className="h-[42%] md:h-[58%] flex flex-col items-center justify-end w-full pb-2">
           <Image
             src="/images/stillbroke.png"
             alt="Still Broke While Earning — book"
             width={220}
             height={286}
-            className="book-float object-contain w-[150px] md:w-[210px] mx-auto"
+            className="book-float object-contain w-[150px] md:w-[300px] mx-auto"
             priority
           />
         </div>
@@ -108,7 +108,8 @@ function Hero() {
       </div>
 
       {/* ── Desktop — text left, floating book right ── */}
-      <div className="relative z-20 hidden lg:flex w-full h-screen items-center px-16 xl:px-24">
+      <div className="relative z-20 hidden lg:flex w-full h-screen items-center">
+        <div className="max-w-6xl mx-auto w-full px-6 flex items-center">
         {/* Text block */}
         <div className="flex flex-col items-start max-w-xl">
           <h1 className="font-display font-light text-[#e8dfc0] mb-5"
@@ -128,6 +129,8 @@ function Hero() {
             <p className="text-center" style={{ color: "var(--text-muted)" }}>Digital copy · Instant access</p>
           </div>
         </div>
+
+        </div>{/* end max-w-6xl wrapper */}
 
         {/* Floating book */}
         <div className="absolute top-1/2 -translate-y-[55%]"
