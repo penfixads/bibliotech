@@ -33,7 +33,7 @@ export default function Checkout() {
             href="/"
             className="text-[#c9a84c] font-bold text-xs tracking-[0.22em] uppercase hover:text-[#f5e642] transition-colors"
           >
-            BrilliantLabs Bibliotech
+            BrilliantLabsPh Bibliotech
           </Link>
           <Link
             href="/"
@@ -257,7 +257,7 @@ export default function Checkout() {
             <p className="text-center text-[#f5f0e8]/35 text-xs mt-5 leading-relaxed">
               Instant digital delivery · Lifetime access
               <br />
-              Published by BrilliantLabs Bibliotech
+              Published by BrilliantLabsPh Bibliotech
             </p>
           </aside>
         </div>
@@ -272,7 +272,7 @@ export default function Checkout() {
           className="text-transparent bg-clip-text font-bold text-xs tracking-[0.2em] uppercase mb-2 inline-block"
           style={{ backgroundImage: "linear-gradient(135deg, #c9a84c, #f5e642)" }}
         >
-          BrilliantLabs Bibliotech
+          BrilliantLabsPh Bibliotech
         </p>
         <p className="text-[#f5f0e8]/28 text-xs">
           © 2026 M.A. Jacinto. All rights reserved.

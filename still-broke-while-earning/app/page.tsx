@@ -34,13 +34,13 @@ function Navbar() {
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <span className="flex flex-col leading-tight">
           <span className="font-brand text-[#c8a84b]" style={{ fontSize: "20px", letterSpacing: "4px", textTransform: "uppercase" }}>
-            BrilliantLabs Bibliotech
+            BrilliantLabsPh Bibliotech
           </span>
           <span className="eyebrow text-[#c8a84b]/60" style={{ fontSize: "10px", letterSpacing: "4px" }}>
             New Release
           </span>
         </span>
-        <BuyButton />
+        <span className="hidden lg:inline-block"><BuyButton /></span>
       </div>
     </nav>
   );
@@ -56,7 +56,7 @@ function Hero() {
           src="/images/hero_shine.png"
           alt="Warm reading scene"
           fill
-          className="object-cover object-center"
+          className="object-cover object-[60%_center] lg:object-center"
           priority
         />
         {/* Mobile/tablet overlay */}
@@ -72,36 +72,37 @@ function Hero() {
       <div className="absolute inset-0 z-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(200,168,75,0.08) 0%, transparent 60%)" }} />
 
-      {/* ── Mobile / Tablet — centered column ── */}
-      <div className="relative z-20 w-full flex flex-col items-center justify-center px-6 pt-24 pb-16 gap-8 h-screen text-center lg:hidden">
-        <Image
-          src="/images/stillbroke.png"
-          alt="Still Broke While Earning — book"
-          width={220}
-          height={286}
-          className="book-float object-contain w-[150px] md:w-[185px] flex-shrink-0"
-          priority
-        />
-        <div className="flex flex-col items-center max-w-lg">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-8 h-px bg-gradient-to-r from-[#c8a84b] to-[#f5e642]" />
-            <span className="eyebrow text-[#c8a84b]">BrilliantLabs Bibliotech — New Release</span>
-          </div>
-          <h1 className="font-display font-light text-[#e8dfc0] mb-5"
-            style={{ fontSize: "41px", lineHeight: 1.2 }}>
+      {/* ── Mobile / Tablet — book over glow, text below ── */}
+      <div className="relative z-20 w-full flex flex-col items-center justify-start px-6 pt-20 h-screen text-center lg:hidden">
+        {/* Book centered over the glowing open book background */}
+        <div className="flex-1 flex flex-col items-center justify-center w-full pt-[80px] md:pt-[40px]">
+          <Image
+            src="/images/stillbroke.png"
+            alt="Still Broke While Earning — book"
+            width={220}
+            height={286}
+            className="book-float object-contain w-[150px] md:w-[210px] mx-auto"
+            priority
+          />
+        </div>
+        {/* Text beneath the open book — all centered */}
+        <div className="flex flex-col items-center w-full max-w-lg md:max-w-2xl mx-auto pb-10">
+          <h1 className="font-display font-light text-[#e8dfc0] mb-4 text-[38px] md:text-[52px] w-full text-center"
+            style={{ lineHeight: 1.2, textShadow: "0 2px 12px rgba(0,0,0,0.95), 0 4px 32px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,1)" }}>
             You work hard.<br />
             <em>You earn.</em>{" "}And yet…<br />
             you&apos;re still broke.
           </h1>
-          <p className="text-[#e8dfc0]/70 mb-2">
+          <p className="text-[#e8dfc0]/70 mb-2 text-center w-full"
+            style={{ textShadow: "0 2px 8px rgba(0,0,0,0.95), 0 1px 4px rgba(0,0,0,1)" }}>
             The answer isn&apos;t more income.
           </p>
-          <p className="mb-6 font-normal" style={{ color: "#c8a84b" }}>
+          <p className="mb-6 font-normal text-center w-full" style={{ color: "#c8a84b", textShadow: "0 2px 8px rgba(0,0,0,0.95), 0 1px 4px rgba(0,0,0,1)" }}>
             It&apos;s the system you&apos;ve never been taught.
           </p>
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-2 items-center w-full">
             <BuyButton size="large" />
-            <p style={{ color: "var(--text-muted)" }}>Digital copy · Instant access</p>
+            <p className="text-center" style={{ color: "var(--text-muted)" }}>Digital copy · Instant access</p>
           </div>
         </div>
       </div>
@@ -110,10 +111,6 @@ function Hero() {
       <div className="relative z-20 hidden lg:flex w-full h-screen items-center px-16 xl:px-24">
         {/* Text block */}
         <div className="flex flex-col items-start max-w-xl">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-8 h-px bg-gradient-to-r from-[#c8a84b] to-[#f5e642]" />
-            <span className="eyebrow text-[#c8a84b]">BrilliantLabs Bibliotech — New Release</span>
-          </div>
           <h1 className="font-display font-light text-[#e8dfc0] mb-5"
             style={{ fontSize: "45px", lineHeight: 1.2, textShadow: "0 2px 16px rgba(4,16,10,0.9), 0 1px 4px rgba(4,16,10,0.8)" }}>
             You work hard.<br />
@@ -405,12 +402,12 @@ function AboutAuthor() {
             <p className="text-[#e8dfc0]/70 mb-6">
               M.A. Jacinto is a single mother of three, entrepreneur, and founder of the FlowPath Budget method. She is the CEO of{" "}
               <strong className="text-[#e8dfc0] font-normal">Penfix Advertising and Business Solutions</strong> and the founder of{" "}
-              <strong className="text-[#e8dfc0] font-normal">BrilliantLabs Solutions</strong> — a growing ecosystem of AI-powered business and knowledge solutions built in the heart of San Fernando, Pampanga.
+              <strong className="text-[#e8dfc0] font-normal">BrilliantLabsPh Solutions</strong> — a growing ecosystem of AI-powered business and knowledge solutions built in the heart of San Fernando, Pampanga.
             </p>
 
             <p className="text-[#e8dfc0]/70 mb-10">
               <em>Still Broke While Earning</em> is her first book and the flagship publication of{" "}
-              <strong className="text-[#e8dfc0] font-normal">BrilliantLabs Bibliotech</strong>.
+              <strong className="text-[#e8dfc0] font-normal">BrilliantLabsPh Bibliotech</strong>.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -581,25 +578,25 @@ function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         <div>
           <p className="font-brand text-transparent bg-clip-text mb-1"
-            style={{ backgroundImage: "linear-gradient(135deg, #c8a84b, #f5e642)", fontSize: "20px", letterSpacing: "4px", textTransform: "uppercase" }}>
-            BrilliantLabs Bibliotech
+            style={{ backgroundImage: "linear-gradient(135deg, #c8a84b, #f5e642)", fontSize: "14px", letterSpacing: "3px", textTransform: "uppercase" }}>
+            BrilliantLabsPh Bibliotech
           </p>
-          <p style={{ color: "var(--text-muted)" }}>A division of BrilliantLabs Solutions</p>
+          <p style={{ color: "var(--text-muted)", fontSize: "13px" }}>A division of BrilliantLabsPh Solutions</p>
         </div>
 
-        <nav className="flex flex-wrap gap-6 justify-center">
+        <nav className="flex flex-wrap gap-4 justify-center">
           {[["problem","Problem"],["learn","Learn"],["inside","Inside"],["flowpath","FlowPath"],["author","Author"],["testimonials","Testimonials"],["pricing","Pricing"]].map(([id, label]) => (
             <a key={id} href={`#${id}`}
-              className="eyebrow hover:text-[#c8a84b] transition-colors duration-200"
-              style={{ color: "rgba(232,223,192,0.4)" }}>
+              className="hover:text-[#c8a84b] transition-colors duration-200"
+              style={{ color: "rgba(232,223,192,0.4)", fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", fontWeight: 300 }}>
               {label}
             </a>
           ))}
         </nav>
 
-        <p className="text-center md:text-right" style={{ color: "var(--text-muted)" }}>
+        <p className="text-center md:text-right" style={{ color: "var(--text-muted)", fontSize: "13px" }}>
           © 2026 M.A. Jacinto. All rights reserved.
-          <br />BrilliantLabs Bibliotech
+          <br />BrilliantLabsPh Bibliotech
         </p>
       </div>
     </footer>
