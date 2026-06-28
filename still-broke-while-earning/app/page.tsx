@@ -49,7 +49,7 @@ function Navbar() {
 /* ─── Hero ────────────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden" style={{ height: "100svh" }}>
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -73,7 +73,7 @@ function Hero() {
         style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(200,168,75,0.08) 0%, transparent 60%)" }} />
 
       {/* ── Mobile / Tablet — book over glow, text below ── */}
-      <div className="relative z-20 w-full flex flex-col items-center justify-start px-6 pt-20 h-screen text-center lg:hidden">
+      <div className="relative z-20 w-full flex flex-col items-center justify-start px-6 pt-20 text-center lg:hidden" style={{ height: "100svh" }}>
         {/* Book positioned to align with the glowing open book in background */}
         <div className="h-[42%] md:h-[58%] flex flex-col items-center justify-end w-full pb-2">
           <Image
