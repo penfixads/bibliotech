@@ -6,8 +6,9 @@ import { useState } from "react";
 
 /* ─── Checkout Page ───────────────────────────────────────── */
 export default function Checkout() {
-  const [form, setForm] = useState({ name: "", email: "", method: "card" });
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "" });
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const includes = [
     "Digital copy of the full book (11 Parts)",
@@ -16,9 +17,22 @@ export default function Checkout() {
     "AI Financial Assessment tool",
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setPending(true);
+    setError(null);
+    const res = await fetch("/api/create-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ buyerName: form.name, buyerEmail: form.email }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      setError(data.error ?? "Something went wrong. Please try again.");
+      setPending(false);
+    }
   };
 
   return (
@@ -81,25 +95,7 @@ export default function Checkout() {
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
           {/* ─── Left: Checkout form ─────────────────────── */}
           <div className="emerald-card rounded-2xl p-8 md:p-10">
-            {submitted ? (
-              <div className="text-center py-10">
-                <div className="text-5xl mb-5">✅</div>
-                <h2 className="font-display text-2xl font-black text-[#f5f0e8] mb-3">
-                  Thank you, {form.name || "friend"}!
-                </h2>
-                <p className="text-[#f5f0e8]/65 leading-relaxed max-w-md mx-auto mb-2">
-                  Your order has been received. (This is a placeholder — payment
-                  processing is not yet connected.)
-                </p>
-                <p className="text-[#c9a84c]/80 text-sm mb-8">
-                  A download link would be sent to{" "}
-                  <span className="text-[#f5e642]">{form.email || "your email"}</span>.
-                </p>
-                <Link href="/" className="btn-gold px-8 py-3 text-sm inline-block">
-                  Back to Home
-                </Link>
-              </div>
-            ) : (
+            {(
               <form onSubmit={handleSubmit}>
                 <h2 className="font-display text-2xl font-black text-[#f5f0e8] mb-1">
                   Your Details
@@ -138,55 +134,30 @@ export default function Checkout() {
                   />
                 </label>
 
-                {/* Payment method */}
-                <span className="text-[#c9a84c] text-xs font-semibold tracking-wider uppercase mb-3 block">
-                  Payment Method
-                </span>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-                  {[
-                    { id: "card",    label: "Card",          icon: "/images/icons/creditcard.png", size: 36 },
-                    { id: "gcash",   label: "GCash",         icon: "/images/icons/gcash.png",       size: 42 },
-                    { id: "paymaya", label: "PayMaya",       icon: "/images/icons/maya.png",        size: 47 },
-                    { id: "bank",    label: "Bank Transfer", icon: "/images/icons/bank.png",        size: 36 },
-                  ].map((m) => (
-                    <button
-                      key={m.id}
-                      type="button"
-                      onClick={() => setForm({ ...form, method: m.id })}
-                      className={`rounded-xl p-4 text-center transition-all duration-200 ${
-                        form.method === m.id
-                          ? "border-2 text-[#f5e642]"
-                          : "border text-[#f5f0e8]/60 hover:text-[#f5f0e8]"
-                      }`}
-                      style={{
-                        borderColor:
-                          form.method === m.id
-                            ? "#c9a84c"
-                            : "rgba(201,168,76,0.25)",
-                        background:
-                          form.method === m.id
-                            ? "rgba(201,168,76,0.08)"
-                            : "transparent",
-                      }}
-                    >
-                      <div className="flex justify-center mb-1">
-                        <Image src={m.icon} alt={m.label} width={m.size} height={m.size} className="object-contain icon-glow" />
-                      </div>
-                      <div className="text-sm font-medium">{m.label}</div>
-                    </button>
+                {/* Payment methods note */}
+                <div className="flex items-center gap-3 mb-8">
+                  {["GCash", "Maya", "Card", "GrabPay"].map((m) => (
+                    <span key={m} className="text-xs px-3 py-1.5 rounded-lg"
+                      style={{ background: "rgba(201,168,76,0.07)", border: "1px solid rgba(201,168,76,0.2)", color: "rgba(232,224,208,0.6)" }}>
+                      {m}
+                    </span>
                   ))}
                 </div>
 
-                <button type="submit" className="btn-gold w-full px-8 py-5 text-base">
-                  Pay ₱950 — Complete Order
+                {error && (
+                  <p className="text-sm mb-4 text-center" style={{ color: "#fca5a5" }}>{error}</p>
+                )}
+
+                <button type="submit" disabled={pending} className="btn-gold w-full px-8 py-5 text-base disabled:opacity-60">
+                  {pending ? "Redirecting to payment…" : "Pay ₱950 — Complete Order"}
                 </button>
 
                 <p className="text-center text-[#f5f0e8]/30 text-xs mt-4">
-                  🔒 Placeholder checkout · No real payment is processed yet
+                  🔒 Secure payment via PayMongo · GCash · Maya · Card
                 </p>
               </form>
             )}
-          </div>
+            </div>
 
           {/* ─── Right: Order summary ────────────────────── */}
           <aside className="lg:sticky lg:top-28">

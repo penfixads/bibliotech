@@ -2,11 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "Next.js dev server",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["--yes", "next", "dev", "--port", "3000"],
-      "cwd": "C:\\PENFIX WEBSITES\\bibliotech\\still-broke-while-earning",
-      "port": 3000
+      "name": "still-broke",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3001
     }
   ]
 }
