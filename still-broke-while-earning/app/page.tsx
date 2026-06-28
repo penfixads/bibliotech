@@ -81,7 +81,7 @@ function Hero() {
             alt="Still Broke While Earning — book"
             width={220}
             height={286}
-            className="book-float object-contain w-[150px] md:w-[300px] mx-auto"
+            className="book-float object-contain w-[40vw] min-w-[120px] max-w-[320px] mx-auto"
             priority
           />
         </div>
